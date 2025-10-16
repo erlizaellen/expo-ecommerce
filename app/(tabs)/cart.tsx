@@ -31,11 +31,11 @@ const CartScreen = () => {
             </Text>
 
             <Text bold>
-              $
+              
               {item.quantity > 1
                 ? item.product.price * item.quantity
                 : item.product.price}{" "}
-              USD
+              R$
             </Text>
           </VStack>
 

@@ -107,12 +107,12 @@ export const products = [
   },
   {
     id: 9,
-    title: "WD 2TB Elements Portable External Hard Drive - USB 3.0 ",
-    price: 64,
+    title: "Iphone 15 de 128GB - Preto ",
+    price: 5300,
     description:
-      "USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system",
+      "Iphone 15. Uma nova era para o iPhone. Com o chip mais rápido num smartphone, um sistema de câmara revolucionário e um design que é tão resistente quanto bonito. O iPhone 15 é tudo o que adoras no iPhone, levado ao extremo.",
     category: "electronics",
-    image: "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
+    image: "https://tse4.mm.bing.net/th/id/OIP.xzcw550qM1g7q9vm4a5lhQHaF7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
     rating: {
       rate: 3.3,
       count: 203,
