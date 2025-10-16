@@ -13,24 +13,33 @@ import {
   ToastTitle,
   useToast,
 } from "@/components/ui/toast";
+import { useState } from "react";
 import { useCart } from "@/store/cartStore";
 
 const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
-  const addItem = useCart((state) => state.addItem);
-  const toast = useToast();
+
+  const addItem = useCart((state: any) => state.addItem);
 
   const productById = products.find((product) => String(product.id) === id);
 
-  // ✅ CRIAMOS UMA ÚNICA FUNÇÃO, MAIS SIMPLES E DIRETA
-  const handleAddToCart = (product: any) => {
-    // 1. Adiciona o item ao carrinho INCONDICIONALMENTE
+  const toast = useToast();
+  const [toastId, setToastId] = useState(0);
+
+  const handleToast = (product: any) => {
+    if (!toast.isActive(String(toastId))) {
+      showNewToast(product);
+    }
+  };
+  const showNewToast = (product: any) => {
     addItem(product);
 
-    // 2. Mostra a notificação de sucesso
+    const newId = Math.random();
+    setToastId(newId);
     toast.show({
+      id: String(newId),
       placement: "top",
-      duration: 2000, // Duração mais curta é melhor para UX
+      duration: 4000,
       render: ({ id }) => {
         const uniqueToastId = "toast-" + id;
         return (
@@ -40,8 +49,10 @@ const ProductDetailsScreen = () => {
             variant="solid"
             className="mt-8"
           >
-            <ToastTitle>Produto adicionado!</ToastTitle>
-            <ToastDescription>O item foi adicionado ao seu carrinho.</ToastDescription>
+            <ToastTitle>Item added to your cart!</ToastTitle>
+            <ToastDescription>
+              The item has been added to your cart!
+            </ToastDescription>
           </Toast>
         );
       },
@@ -50,11 +61,13 @@ const ProductDetailsScreen = () => {
 
   if (!productById) {
     return (
-      <Card className="flex-1 p-4">
-        <Heading size="3xl" className="text-red-500">
-          Produto não encontrado!
-        </Heading>
-      </Card>
+      <>
+        <Card className="flex-1 p-4">
+          <Heading size="3xl" className="text-red-500">
+            Product not found!
+          </Heading>
+        </Card>
+      </>
     );
   }
 
@@ -64,7 +77,9 @@ const ProductDetailsScreen = () => {
 
       <Card className="p-5 rounded-lg flex-1">
         <Image
-          source={{ uri: productById.image }}
+          source={{
+            uri: productById.image,
+          }}
           className="mb-6 h-[240px] w-full rounded-md"
           alt="image"
           resizeMode="contain"
@@ -81,10 +96,9 @@ const ProductDetailsScreen = () => {
         <Box className="flex-col sm:flex-row">
           <Button
             className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1 bg-blue-500"
-            // ✅ CHAMAMOS A NOVA FUNÇÃO SIMPLIFICADA AQUI
-            onPress={() => handleAddToCart(productById)}
+            onPress={() => handleToast(productById)}
           >
-            <ButtonText size="sm">Adicionar ao carrinho</ButtonText>
+            <ButtonText size="sm">Add to cart</ButtonText>
           </Button>
         </Box>
       </Card>
